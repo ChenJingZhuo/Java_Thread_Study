@@ -3,6 +3,7 @@ package com.cjz;
 //创建线程方式二：实现runnable接口，重写run方法，执行线程需要丢入runnable接口实现对象
 public class TestThread2 implements Runnable{
 
+    @Override
     public void run() {
         //run方法线程体
         for (int i = 0; i < 200; i++) {
