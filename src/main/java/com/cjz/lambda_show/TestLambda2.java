@@ -19,6 +19,12 @@ public class TestLambda2 {
         Love love = (int a, int b) -> System.out.println("a="+a+", b="+b);
 
         love.love(520,521);
+
+        //同理
+        Runnable runnable = () -> {
+            System.out.println("6666");
+        };
+        runnable.run();
     }
 }
 

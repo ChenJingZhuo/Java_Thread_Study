@@ -36,6 +36,12 @@ public class TestLambda1 {
 
         Like like6 = ()-> System.out.println("I like you 6");
         like6.like();
+
+        //同理
+        Runnable runnable = () -> {
+            System.out.println("6666");
+        };
+        runnable.run();
     }
 
 }
