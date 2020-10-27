@@ -30,6 +30,8 @@ public class TestState {
             System.out.println(state);  //输出线程状态
         }
 
+        thread.start(); //同一线程只能启动一次
+
     }
 
 }
