@@ -19,6 +19,5 @@ public class TestJUC {
         }
 
         System.out.println(list.size());
-
     }
 }
