@@ -33,7 +33,8 @@ class BuyTicket implements Runnable{
 
     }
 
-    private void buy() throws InterruptedException {
+    //synchronized 同步方法 锁的是this，this要是锁增删改查的对象才行
+    private synchronized void buy() throws InterruptedException {
         if (ticketNums <= 0){
             flag = false;
             return;

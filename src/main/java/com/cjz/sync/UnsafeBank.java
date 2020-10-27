@@ -4,7 +4,7 @@ package com.cjz.sync;
 public class UnsafeBank {
     public static void main(String[] args) {
         //账户
-        Account account = new Account(100,"结婚基金");
+        Account account = new Account(1000,"结婚基金");
 
         Drawing you = new Drawing(account,50,"你");
         Drawing girlFriend = new Drawing(account,100,"girlFriend");
@@ -38,30 +38,32 @@ class Drawing extends Thread{
     }
 
     //取钱
+    //synchronized 默认锁的是this，this是Drawing，不是增删改查的对象，account才是。
     @Override
     public void run() {
-        //判断有没有钱
-        if (account.money-drawingMoney<0){
-            System.out.println("钱不够，取不了");
-            return;
+        synchronized (account){
+            //判断有没有钱
+            if (account.money-drawingMoney<0){
+                System.out.println(this.getName()+"钱不够，取不了");
+                return;
+            }
+
+            //sleep模拟延时放大问题的发生性
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            //卡内余额 = 余额 - 你取的钱
+            account.money = account.money - drawingMoney;
+
+            nowMoney = nowMoney + drawingMoney;
+
+            System.out.println(account.name+"余额为："+account.money);
+
+            //Thread.getCurrentThread().getName() = this.getName()
+            System.out.println(this.getName()+"手里的钱："+nowMoney);
         }
-
-        //sleep模拟延时放大问题的发生性
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        //卡内余额 = 余额 - 你取的钱
-        account.money = account.money - drawingMoney;
-
-        nowMoney = nowMoney + drawingMoney;
-
-        System.out.println(account.name+"余额为："+account.money);
-
-        //Thread.getCurrentThread().getName() = this.getName()
-        System.out.println(this.getName()+"手里的钱："+nowMoney);
-
     }
 }

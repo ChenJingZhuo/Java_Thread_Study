@@ -9,7 +9,10 @@ public class UnsafeList {
         List<String> list = new ArrayList<>();
         for (int i = 0; i < 10000; i++) {
             new Thread(()->{
-                list.add(Thread.currentThread().getName());
+                //锁要增删改查的对象
+                synchronized(list){
+                    list.add(Thread.currentThread().getName());
+                }
             }).start(); //添加到同一个位置，所以会少。
         }
 
